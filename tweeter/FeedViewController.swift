@@ -82,14 +82,23 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "composeSegue" {
+            println("Compose screen invoked")
+            var compNav = segue.destinationViewController as UINavigationController
+            var comp = compNav.topViewController as ComposeViewController
+            comp.poster = "Jatin P"
+        }
+        else if segue.identifier == "detailSegue" {
+            println("Trying to get detail")
+            var detailVC = segue.destinationViewController as DetailViewController
+            detailVC.tweetLabelString = "Jatin tweeted this"
+        }
     }
-    */
 
 }

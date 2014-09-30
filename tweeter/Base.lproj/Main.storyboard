@@ -50,7 +50,7 @@
                                 <rect key="frame" x="0.0" y="5" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TweetCell" rowHeight="99" id="wlf-En-nqN" customClass="TweetCell" customModule="tweeter" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TweetCell" rowHeight="99" id="wlf-En-nqN" customClass="TweetCell" customModule="tweeter" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wlf-En-nqN" id="xz2-Vy-rkB">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -82,6 +82,7 @@
                                             <outlet property="timestamp" destination="3OQ-TW-sYO" id="qtL-TB-xgj"/>
                                             <outlet property="tweet" destination="OpW-0a-Nt2" id="9T5-6Z-cyy"/>
                                             <outlet property="username" destination="yis-3a-5qx" id="MN8-RC-w9E"/>
+                                            <segue destination="92f-z4-0ro" kind="push" identifier="detailSegue" id="Do4-s3-5dZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -110,7 +111,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="3Y0-iE-dvk" kind="modal" id="Tsz-c8-hxe"/>
+                                    <segue destination="3Y0-iE-dvk" kind="modal" identifier="composeSegue" id="Tsz-c8-hxe"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -122,6 +123,67 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jbi-MF-R4U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="667" y="315"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="bCh-48-vYe">
+            <objects>
+                <viewController id="92f-z4-0ro" customClass="DetailViewController" customModule="tweeter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dGc-4b-VTx"/>
+                        <viewControllerLayoutGuide type="bottom" id="26c-65-BbX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hw7-BB-XID">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXu-Dg-OMQ">
+                                <rect key="frame" x="0.0" y="64" width="320" height="140"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfB-8z-2W8">
+                                <rect key="frame" x="16" y="269" width="57" height="30"/>
+                                <state key="normal" title="Retweet">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onRetweet:" destination="92f-z4-0ro" eventType="touchUpInside" id="wSX-PX-7tO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bud-fD-Pyr">
+                                <rect key="frame" x="258" y="269" width="39" height="30"/>
+                                <state key="normal" title="Reply">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BmE-2k-01Y">
+                                <rect key="frame" x="132" y="269" width="56" height="30"/>
+                                <state key="normal" title="Favorite">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="P6b-nc-YtG">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="ZRi-fE-0DS">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Qao-1D-mD2">
+                                <rect key="frame" x="-23" y="-15" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tweetLabel" destination="fXu-Dg-OMQ" id="yNx-0y-Yrh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R2S-8i-cjo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1103" y="315"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pCI-a6-Jek">
@@ -160,6 +222,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAe-Y6-Rer">
+                                <rect key="frame" x="16" y="316" width="288" height="54"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -188,10 +256,13 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="posterName" destination="OAe-Y6-Rer" id="BGu-X4-bFi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dgc-gb-SkC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="730" y="1007"/>
+            <point key="canvasLocation" x="1020" y="1008"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Af7-64-1zE">
@@ -209,7 +280,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="liQ-CO-5eV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="333" y="955"/>
+            <point key="canvasLocation" x="611" y="1008"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

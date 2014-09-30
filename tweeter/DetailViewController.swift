@@ -1,22 +1,21 @@
 //
-//  ComposeViewController.swift
+//  DetailViewController.swift
 //  tweeter
 //
-//  Created by Jatin Pandey on 9/25/14.
+//  Created by Jatin Pandey on 9/29/14.
 //  Copyright (c) 2014 Jatin Pandey. All rights reserved.
 //
 
 import UIKit
 
-class ComposeViewController: UIViewController {
+class DetailViewController: UIViewController {
 
-    @IBOutlet weak var posterName: UILabel!
-    var poster: String! = "Yooo"
-    
+    @IBOutlet weak var tweetLabel: UILabel!
+    var tweetLabelString: String!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        posterName.text = poster
+        tweetLabel.text = tweetLabelString
         // Do any additional setup after loading the view.
     }
 
@@ -24,12 +23,11 @@ class ComposeViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    @IBAction func onClickCancel(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    
+    @IBAction func onRetweet(sender: AnyObject) {
+        
     }
-    
-    
+
     /*
     // MARK: - Navigation
 
