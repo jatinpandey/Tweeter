@@ -58,17 +58,17 @@ class DetailViewController: UIViewController {
                 println(error)
         })
     }
-    
+
     @IBAction func onReply(sender: AnyObject) {
-        
-        TwitterClient.sharedInstance.POST("1.1/statuses/update.json?status=replyText&in_reply_to_status_id=\(tweet.id)", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        // Make this customizable (new screen or expose text field
+        var replyText = "Cool%20post"
+        TwitterClient.sharedInstance.POST("1.1/statuses/update.json?status=\(replyText)&in_reply_to_status_id=\(tweet.id)", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             println(response)
-            self.favoriteButton.setTitle("Favorited", forState: UIControlState.Normal)
+            self.replyButton.setTitle("Replied", forState: UIControlState.Normal)
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                println("Error posting tweet")
+                println("Error posting reply")
         })
     }
-    
 
     /*
     // MARK: - Navigation
