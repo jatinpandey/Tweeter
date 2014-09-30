@@ -31,7 +31,10 @@ class ComposeViewController: UIViewController {
     }
     
     @IBAction func onTweet(sender: AnyObject) {
-        TwitterClient.sharedInstance.POST("1.1/statuses/update.json?status=Yo", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        println(tweetView.text)
+        var status = tweetView.text.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        println(status)
+        TwitterClient.sharedInstance.POST("1.1/statuses/update.json?status=\(status!)", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
                 println(response)
                 self.dismissViewControllerAnimated(true, completion: nil)
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
