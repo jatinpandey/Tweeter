@@ -24,6 +24,11 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    @IBAction func onBackButton(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     @IBAction func onRetweet(sender: AnyObject) {
         
     }

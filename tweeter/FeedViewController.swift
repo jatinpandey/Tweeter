@@ -82,6 +82,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("detailSegue", sender: indexPath)
+    }
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -95,9 +99,15 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             comp.poster = "Jatin P"
         }
         else if segue.identifier == "detailSegue" {
-            println("Trying to get detail")
             var detailVC = segue.destinationViewController as DetailViewController
-            detailVC.tweetLabelString = "Jatin tweeted this"
+            if var x = tweets?[sender.row] {
+                println("Segueing to this row")
+                detailVC.tweetLabelString = tweets![sender.row].text
+            }
+            else {
+                println("Tweet not in index")
+            }
+            println("Row is \(sender.row)")
         }
     }
 

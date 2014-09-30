@@ -11,6 +11,7 @@ import UIKit
 class ComposeViewController: UIViewController {
 
     @IBOutlet weak var posterName: UILabel!
+    @IBOutlet weak var tweetView: UITextView!
     var poster: String! = "Yooo"
     
     override func viewDidLoad() {
@@ -29,6 +30,14 @@ class ComposeViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    @IBAction func onTweet(sender: AnyObject) {
+        TwitterClient.sharedInstance.POST("1.1/statuses/update.json?status=Yo", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+                println(response)
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("Error posting tweet")
+        })
+    }
     
     /*
     // MARK: - Navigation
