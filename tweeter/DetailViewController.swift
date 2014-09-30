@@ -63,7 +63,7 @@ class DetailViewController: UIViewController {
         // Make this reply customizable (new screen or expose text field)
         var replyText = "Cool%20tweet"
         replyText = "@" + tweet.user.screenName + "%20" + replyText
-        TwitterClient.sharedInstance.POST("1.1/statuses/update.json?status=\(replyText)&in_reply_to_status_id=\(tweet.id)", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        TwitterClient.sharedInstance.POST("1.1/statuses/update.json?status=\(replyText)&in_reply_to_status_id=\(tweet.id)&in_reply_to_screen_name=\(tweet.user.screenName)", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             println(response)
             self.replyButton.setTitle("Replied", forState: UIControlState.Normal)
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
