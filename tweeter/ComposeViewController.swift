@@ -29,7 +29,7 @@ class ComposeViewController: UIViewController {
     @IBAction func onClickCancel(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
-    
+
     @IBAction func onTweet(sender: AnyObject) {
         println(tweetView.text)
         var status = tweetView.text.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)

@@ -11,11 +11,18 @@ import UIKit
 class DetailViewController: UIViewController {
 
     @IBOutlet weak var tweetLabel: UILabel!
-    var tweetLabelString: String!
+//    var tweetLabelString: String!
+    var tweet: Tweet!
+    
+    @IBOutlet weak var replyButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tweetLabel.text = tweetLabelString
+        tweetLabel.text = tweet.text
+        println(tweet.id)
         // Do any additional setup after loading the view.
     }
 
@@ -30,8 +37,38 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func onRetweet(sender: AnyObject) {
-        
+        TwitterClient.sharedInstance.POST("1.1/statuses/retweet/\(tweet.id).json", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            println(response)
+//            self.dismissViewControllerAnimated(true, completion: nil)
+            self.retweetButton.setTitle("Retweeted", forState: UIControlState.Normal)
+            self.retweetButton.enabled = false
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("Error posting retweet")
+                println(error)
+        })
     }
+
+    @IBAction func onFavorite(sender: AnyObject) {
+        TwitterClient.sharedInstance.POST("1.1/favorites/create.json?id=\(tweet.id)", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+                println(response)
+                self.favoriteButton.setTitle("Favorited", forState: UIControlState.Normal)
+                self.favoriteButton.enabled = false
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("Error favoriting")
+                println(error)
+        })
+    }
+    
+    @IBAction func onReply(sender: AnyObject) {
+        
+        TwitterClient.sharedInstance.POST("1.1/statuses/update.json?status=replyText&in_reply_to_status_id=\(tweet.id)", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            println(response)
+            self.favoriteButton.setTitle("Favorited", forState: UIControlState.Normal)
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("Error posting tweet")
+        })
+    }
+    
 
     /*
     // MARK: - Navigation

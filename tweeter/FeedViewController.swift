@@ -102,7 +102,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             var detailVC = segue.destinationViewController as DetailViewController
             if var x = tweets?[sender.row] {
                 println("Segueing to this row")
-                detailVC.tweetLabelString = tweets![sender.row].text
+                detailVC.tweet = tweets![sender.row]
+//                detailVC.tweetLabelString = tweets![sender.row].text
             }
             else {
                 println("Tweet not in index")
