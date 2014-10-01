@@ -19,13 +19,15 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         tableView.dataSource = self
         tableView.delegate = self
-        
-        getTweets()
 
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
 
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        getTweets()
     }
     
     func getTweets() {
@@ -82,7 +84,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.performSegueWithIdentifier("detailSegue", sender: indexPath)
     }
 

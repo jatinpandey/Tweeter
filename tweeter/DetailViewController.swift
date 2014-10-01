@@ -49,14 +49,29 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func onFavorite(sender: AnyObject) {
-        TwitterClient.sharedInstance.POST("1.1/favorites/create.json?id=\(tweet.id)", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        if favoriteButton.titleLabel?.text == "Favorite"
+        {
+            TwitterClient.sharedInstance.POST("1.1/favorites/create.json?id=\(tweet.id)", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
                 println(response)
                 self.favoriteButton.setTitle("Favorited", forState: UIControlState.Normal)
-                self.favoriteButton.enabled = false
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println("Error favoriting")
                 println(error)
-        })
+            })
+        }
+        else {
+            TwitterClient.sharedInstance.POST("1.1/favorites/destroy.json?id=\(tweet.id)", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+
+                let falsy = response["favorited"]
+                println("False === \(falsy)")
+                
+                self.favoriteButton.setTitle("Favorite", forState: UIControlState.Normal)
+                }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                    println("Error unfavoriting")
+                    println(error)
+            })
+
+        }
     }
 
     @IBAction func onReply(sender: AnyObject) {

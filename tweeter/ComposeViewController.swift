@@ -8,17 +8,32 @@
 
 import UIKit
 
-class ComposeViewController: UIViewController {
+class ComposeViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var posterName: UILabel!
-    @IBOutlet weak var tweetView: UITextView!
+    
+    @IBOutlet weak var chars: UILabel!
+    @IBOutlet weak var tView: UITextView!
     var poster: String! = "Yooo"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         posterName.text = poster
-        // Do any additional setup after loading the view.
+        tView.delegate = self
+        tView.layer.borderColor = UIColor.blueColor().CGColor
+        tView.layer.borderWidth = 2
+    }
+
+    func textViewDidChange(textView: UITextView) {
+        var tweetVal = tView.text as NSString
+        var currentLength = tweetVal.length
+        let charsLeft = 40 - currentLength
+        chars.text = "\(charsLeft)"
+    }
+
+    @IBAction func onTapGoKeyboard(sender: AnyObject) {
+        self.view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,17 +46,23 @@ class ComposeViewController: UIViewController {
     }
 
     @IBAction func onTweet(sender: AnyObject) {
-        println(tweetView.text)
-        var status = tweetView.text.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-        println(status)
-        TwitterClient.sharedInstance.POST("1.1/statuses/update.json?status=\(status!)", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        if chars.text?.toInt() >= 0 {
+            var status = tView.text.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            println(status)
+            TwitterClient.sharedInstance.POST("1.1/statuses/update.json?status=\(status!)", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
                 println(response)
                 self.dismissViewControllerAnimated(true, completion: nil)
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println("Error posting tweet")
-        })
+            })
+        }
+        else {
+            println("Too long")
+            let alert = UIAlertView(title: "Unable to post", message: "Make sure tweet is within 40 chars", delegate: self, cancelButtonTitle: "OK")
+            alert.show()
+        }
     }
-    
+
     /*
     // MARK: - Navigation
 
