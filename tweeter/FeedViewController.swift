@@ -98,7 +98,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             println("Compose screen invoked")
             var compNav = segue.destinationViewController as UINavigationController
             var comp = compNav.topViewController as ComposeViewController
-            comp.poster = "Jatin P"
         }
         else if segue.identifier == "detailSegue" {
             var detailVC = segue.destinationViewController as DetailViewController

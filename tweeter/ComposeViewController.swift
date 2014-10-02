@@ -14,12 +14,11 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var chars: UILabel!
     @IBOutlet weak var tView: UITextView!
-    var poster: String! = "Yooo"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        posterName.text = poster
+        posterName.text = "@\(User.currentUser!.screenName)"
         tView.delegate = self
         tView.layer.borderColor = UIColor.blueColor().CGColor
         tView.layer.borderWidth = 2
@@ -30,6 +29,11 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         var currentLength = tweetVal.length
         let charsLeft = 40 - currentLength
         chars.text = "\(charsLeft)"
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        tView.text = ""
+        tView.textColor = UIColor.blackColor()
     }
 
     @IBAction func onTapGoKeyboard(sender: AnyObject) {
